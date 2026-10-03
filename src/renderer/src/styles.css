@@ -1,0 +1,401 @@
+:root {
+  --bg: #12100e;
+  --surface: #1b1815;
+  --surface-2: #24201c;
+  --border: #332d27;
+  --border-strong: #4a4138;
+  --bronze: #d9ad5f;
+  --bronze-bright: #eac27a;
+  --bronze-ink: #1d1609;
+  --text: #f2ede4;
+  --text-2: #c4bcae;
+  --muted: #8b8376;
+  --success: #8fca8f;
+  --error: #ec7f73;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font: 13px/1.45 var(--font);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* --- Title bar --- */
+
+.titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding: 0 14px 0 18px;
+  border-bottom: 1px solid var(--border);
+  -webkit-app-region: drag;
+}
+
+/* Leave room for the macOS traffic lights. */
+body[data-platform="darwin"] .titlebar {
+  padding-left: 84px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.icon-button {
+  display: flex;
+  padding: 6px;
+  color: var(--muted);
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+  transition: color 0.15s, background 0.15s;
+}
+
+.icon-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.icon-button:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+.icon-button.active {
+  color: var(--bronze);
+}
+
+/* --- Layout --- */
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+  overflow-y: auto;
+}
+
+/* --- Buttons --- */
+
+.button {
+  padding: 9px 16px;
+  font: 500 13px var(--font);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.button.primary {
+  color: var(--bronze-ink);
+  background: var(--bronze);
+}
+
+.button.primary:hover {
+  background: var(--bronze-bright);
+}
+
+.button.secondary {
+  color: var(--text);
+  background: var(--surface-2);
+  border-color: var(--border-strong);
+}
+
+.button.secondary:hover {
+  background: var(--border);
+}
+
+.button.ghost {
+  color: var(--text-2);
+  background: none;
+  border-color: var(--border);
+}
+
+.button.ghost:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.button.small {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+/* --- Setup (first run) --- */
+
+.setup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin: auto 0;
+  padding: 12px 8px;
+  text-align: center;
+}
+
+.setup h1 {
+  max-width: 300px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.setup p {
+  max-width: 320px;
+  color: var(--text-2);
+}
+
+.setup .progress {
+  width: 100%;
+  max-width: 320px;
+}
+
+.setup .fine {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* --- Drop zone --- */
+
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 220px;
+  padding: 24px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(217, 173, 95, 0.07), transparent 70%),
+    var(--surface);
+  border: 1.5px dashed var(--border-strong);
+  border-radius: var(--radius);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s, background 0.15s, min-height 0.2s;
+}
+
+.dropzone > * {
+  pointer-events: none;
+}
+
+.dropzone:not(.compact) {
+  flex: 1;
+}
+
+.dropzone.compact {
+  min-height: 96px;
+}
+
+.split-wave {
+  margin-bottom: 10px;
+  opacity: 0.9;
+}
+
+.dropzone:hover,
+.dropzone:focus-visible {
+  border-color: var(--bronze);
+}
+
+.dropzone.dragging {
+  border-color: var(--bronze-bright);
+  background: rgba(217, 173, 95, 0.1);
+}
+
+.drop-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.drop-hint {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* --- Queue --- */
+
+.queue {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+}
+
+.queue-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 11px 13px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.queue-item.splitting {
+  border-color: var(--border-strong);
+}
+
+.queue-item.queued .item-name,
+.queue-item.cancelled .item-name {
+  color: var(--text-2);
+}
+
+.item-name {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-status {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.item-status.success {
+  color: var(--success);
+}
+
+.item-status.error,
+.error {
+  font-size: 12px;
+  color: var(--error);
+  user-select: text;
+}
+
+.item-done {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* --- Progress --- */
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.progress-track {
+  height: 5px;
+  background: var(--surface-2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #a87a3a, var(--bronze-bright));
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+/* --- Actions and notes --- */
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actions:empty {
+  display: none;
+}
+
+.footnote {
+  margin-top: auto;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* --- Settings --- */
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.settings h2 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-label {
+  font-size: 12px;
+  color: var(--text-2);
+}
+
+.field select {
+  width: 100%;
+  padding: 8px 30px 8px 10px;
+  font: 13px var(--font);
+  color: var(--text);
+  background: var(--surface-2)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%238b8376' stroke-width='1.5'/%3E%3C/svg%3E")
+    no-repeat right 11px center;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  appearance: none;
+  cursor: pointer;
+}
+
+.field select:focus {
+  outline: none;
+  border-color: var(--bronze);
+}
+
+.field-hint {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.settings .button {
+  align-self: flex-start;
+}

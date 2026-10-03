@@ -1,0 +1,10 @@
+node_modules
+out
+release
+.cache
+.DS_Store
+*.log
+
+# Native tools are built or downloaded by `npm run setup`
+resources/bin
+native/audio-prep/build
